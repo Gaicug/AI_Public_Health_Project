@@ -502,43 +502,124 @@ fig2 = px.bar(
     color="Vulnerability_Level"
 )
 
-st.subheader("🤖 AI Insights")
 
-highest = df.loc[
+# =========================================================
+# AI INSIGHTS
+# =========================================================
+
+
+# =========================================================
+# AI-GENERATED PUBLIC HEALTH INSIGHTS
+# ========================================================
+
+# =========================================================
+# AI-GENERATED PUBLIC HEALTH INSIGHTS
+# =========================================================
+
+st.subheader("🤖 AI-Generated Public Health Insights")
+
+highest_score = df["Vulnerability_Score"].max()
+lowest_score = df["Vulnerability_Score"].min()
+average_score = df["Vulnerability_Score"].mean()
+
+highest_county = df.loc[
     df["Vulnerability_Score"].idxmax(),
     "County"
 ]
 
-lowest = df.loc[
+lowest_county = df.loc[
     df["Vulnerability_Score"].idxmin(),
     "County"
 ]
-st.subheader("📈 National Vulnerability Indicator")
 
-average_score = df["Vulnerability_Score"].mean()
+high_count = (
+    df["Vulnerability_Level"] == "High"
+).sum()
 
-fig_gauge = px.scatter(
-    x=[0],
-    y=[average_score]
+medium_count = (
+    df["Vulnerability_Level"] == "Medium"
+).sum()
+
+low_count = (
+    df["Vulnerability_Level"] == "Low"
+).sum()
+
+
+# =========================================================
+# INSIGHT CARDS
+# =========================================================
+
+insight_col1, insight_col2, insight_col3 = st.columns(3)
+
+insight_col1.metric(
+    "National Average Score",
+    f"{average_score:.2f}"
 )
 
-st.metric(
-    "Average National Vulnerability Score",
-    round(average_score, 2)
+insight_col2.metric(
+    "Highest-Risk County",
+    highest_county
 )
+
+insight_col3.metric(
+    "Lowest-Risk County",
+    lowest_county
+)
+
+
+# =========================================================
+# VULNERABILITY SITUATION
+# =========================================================
+
+st.markdown("### 📊 Vulnerability Situation")
 
 st.info(
     f"""
-    Most vulnerable county: {highest}
+**National vulnerability overview**
 
-    Least vulnerable county: {lowest}
+🔴 High vulnerability counties: **{high_count}**
 
-    The AI model suggests prioritizing
-    healthcare interventions in highly
-    vulnerable counties.
-    """
+🟠 Medium vulnerability counties: **{medium_count}**
+
+🟢 Low vulnerability counties: **{low_count}**
+
+The county with the highest vulnerability score is
+**{highest_county}**, with a score of
+**{highest_score:.2f}**.
+
+The county with the lowest vulnerability score is
+**{lowest_county}**, with a score of
+**{lowest_score:.2f}**.
+
+**Decision-support implication:**
+
+Healthcare resources should prioritize counties with
+high vulnerability scores while maintaining preventive
+interventions in medium- and low-vulnerability counties.
+"""
 )
-st.plotly_chart(fig2, use_container_width=True)
+
+
+# =========================================================
+# NATIONAL VULNERABILITY INDICATOR
+# =========================================================
+
+st.subheader("📈 National Vulnerability Indicator")
+
+fig_national = px.bar(
+    x=["National Average"],
+    y=[average_score],
+    labels={
+        "x": "",
+        "y": "Vulnerability Score"
+    },
+    title="Average Public Health Vulnerability Score"
+)
+
+st.plotly_chart(
+    fig_national,
+    use_container_width=True
+)
 
 st.markdown("---")
 
