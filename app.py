@@ -110,6 +110,37 @@ box-shadow:2px 2px 6px rgba(0,0,0,0.3);
 
 kenya_map.get_root().html.add_child(folium.Element(legend_html))
 
+legend_html = """
+<div style="
+position: fixed;
+bottom: 30px;
+left: 30px;
+width: 210px;
+z-index: 9999;
+background-color: white;
+border: 2px solid grey;
+border-radius: 8px;
+padding: 12px;
+font-size: 14px;
+box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+">
+<b>🗺️ Vulnerability Legend</b><br><br>
+
+<span style="color:red;">●</span>
+<b>High</b> — Priority intervention<br>
+
+<span style="color:orange;">●</span>
+<b>Medium</b> — Monitor and improve<br>
+
+<span style="color:green;">●</span>
+<b>Low</b> — Maintain and monitor
+</div>
+"""
+
+kenya_map.get_root().html.add_child(
+    folium.Element(legend_html)
+)
+
 st_folium(
     kenya_map,
     width=900,
