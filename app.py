@@ -28,7 +28,7 @@ unsafe_allow_html=True
 
 
 # Load data
-df = pd.read_csv(r"D:\AI_Public_Health_Project\data\kenya_public_health_vulnerability.csv")
+df = pd.read_csv("data\kenya_public_health_vulnerability.csv")
 
 # Load model
 model = joblib.load("models/vulnerability_model.pkl")
