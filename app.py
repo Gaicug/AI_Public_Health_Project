@@ -8,46 +8,7 @@ from streamlit_folium import st_folium
 # SIDEBAR NAVIGATION
 # =========================================================
 
-st.sidebar.title("🏥 AI Public Health System")
 
-st.sidebar.markdown("### Explore the System")
-
-st.sidebar.page_link("app.py", label="🏠 Home")
-
-st.sidebar.page_link(
-    "pages/AI_prediction.py",
-    label="🤖 AI Prediction"
-)
-
-st.sidebar.page_link(
-    "pages/AI_vulnerability_map.py",
-    label="🗺️ AI Vulnerability Map"
-)
-
-st.sidebar.page_link(
-    "pages/analytics_dashboard.py",
-    label="📊 Analytics Dashboard"
-)
-
-st.sidebar.page_link(
-    "pages/early_working_system.py",
-    label="🚨 Early Warning System"
-)
-
-st.sidebar.page_link(
-    "pages/explainable_AI.py",
-    label="🧠 Explainable AI"
-)
-
-st.sidebar.page_link(
-    "pages/model_performance.py",
-    label="📈 Model Performance"
-)
-
-st.sidebar.page_link(
-    "pages/scenario_simulation.py",
-    label="🔮 Scenario Simulation"
-)
 
 
 # =========================================================
@@ -741,44 +702,3 @@ st.markdown(
 # =========================================================
 # SIDEBAR NAVIGATION
 # =========================================================
-
-st.sidebar.title("🏥 AI Public Health System")
-
-st.sidebar.markdown("### Explore the System")
-
-st.sidebar.page_link("app.py", label="🏠 Home")
-
-st.sidebar.page_link(
-    "pages/AI_prediction.py",
-    label="🤖 AI Prediction"
-)
-
-st.sidebar.page_link(
-    "pages/AI_vulnerability_map.py",
-    label="🗺️ AI Vulnerability Map"
-)
-
-st.sidebar.page_link(
-    "pages/analytics_dashboard.py",
-    label="📊 Analytics Dashboard"
-)
-
-st.sidebar.page_link(
-    "pages/early_working_system.py",
-    label="🚨 Early Warning System"
-)
-
-st.sidebar.page_link(
-    "pages/explainable_AI.py",
-    label="🧠 Explainable AI"
-)
-
-st.sidebar.page_link(
-    "pages/model_performance.py",
-    label="📈 Model Performance"
-)
-
-st.sidebar.page_link(
-    "pages/scenario_simulation.py",
-    label="🔮 Scenario Simulation"
-)
