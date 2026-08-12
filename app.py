@@ -3,10 +3,7 @@ import pandas as pd
 import joblib
 import folium
 from streamlit_folium import st_folium
-#page navigation
-# =========================================================
-# SIDEBAR NAVIGATION
-# =========================================================
+
 
 
 
@@ -364,23 +361,25 @@ kenya_map = folium.Map(
 
 
 for _, row in df.iterrows():
+  vulnerability = row[
+    "Vulnerability_Level"
+]
 
-    vulnerability = row[
-        "Vulnerability_Level"
-    ]
+if vulnerability == "Very High":
 
-    if vulnerability == "High":
+    color = "darkred"
 
-        color = "red"
+elif vulnerability == "High":
 
-    elif vulnerability == "Medium":
+    color = "red"
 
-        color = "orange"
+elif vulnerability == "Medium":
 
-    else:
+    color = "orange"
 
-        color = "green"
+else:
 
+    color = "green"
 
     folium.CircleMarker(
 
@@ -422,7 +421,7 @@ legend_html = """
 position: fixed;
 bottom: 30px;
 left: 30px;
-width: 220px;
+width: 240px;
 z-index: 9999;
 background-color: white;
 border: 2px solid grey;
@@ -434,6 +433,10 @@ box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
 
 <b>🗺️ Vulnerability Legend</b>
 <br><br>
+
+<span style="color:darkred;">●</span>
+<b>Very High</b> — Critical priority intervention
+<br>
 
 <span style="color:red;">●</span>
 <b>High</b> — Priority intervention
@@ -448,6 +451,8 @@ box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
 
 </div>
 """
+
+
 
 
 kenya_map.get_root().html.add_child(
@@ -470,48 +475,63 @@ st.divider()
 
 # =========================================================
 # VULNERABILITY SUMMARY
-# =========================================================
 
 st.subheader("📊 Vulnerability Situation")
 
+very_high_count = (
+    df["Vulnerability_Level"]
+    == "Very High"
+).sum()
 
 high_count = (
     df["Vulnerability_Level"]
     == "High"
 ).sum()
 
-
 medium_count = (
     df["Vulnerability_Level"]
     == "Medium"
 ).sum()
-
 
 low_count = (
     df["Vulnerability_Level"]
     == "Low"
 ).sum()
 
-
-col1, col2, col3 = st.columns(3)
-
+col1, col2, col3, col4 = st.columns(4)
 
 col1.metric(
-    "🔴 High Vulnerability",
+    "🔴 Very High Vulnerability",
+    very_high_count
+)
+
+col2.metric(
+    "🟥 High Vulnerability",
     high_count
 )
 
-
-col2.metric(
+col3.metric(
     "🟠 Medium Vulnerability",
     medium_count
 )
 
-
-col3.metric(
+col4.metric(
     "🟢 Low Vulnerability",
     low_count
 )
+
+total_classified = (
+    very_high_count
+    + high_count
+    + medium_count
+    + low_count
+)
+
+st.info(
+    f"📍 **{total_classified} of {total_counties} counties "
+    f"have classified vulnerability levels.**"
+)
+
 
 
 st.divider()
